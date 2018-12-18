@@ -18,6 +18,7 @@
                     TargetInkCanvas="{x:Bind inkCanvas}">
                 </InkToolbar>
                 <Button x:Name="buttonSave" Content="Save" Click="Save"/>
+                <Button x:Name="buttonLoad" Content="Load" Click="Load"/>
             </StackPanel>
         </Grid> 
         <Grid Grid.Row="1">

@@ -28,9 +28,14 @@ namespace ink_uwp
             this.InitializeComponent();
         }
 
-        internal void Save(object s, RoutedEventArgs e)
+        private void Save(object sender, RoutedEventArgs e)
         {
             Debug.WriteLine("SAVE");
+        }
+
+        private void Load(object sender, RoutedEventArgs e)
+        {
+            Debug.WriteLine("LOAD");
         }
     }
 }
