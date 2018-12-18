@@ -1,0 +1,29 @@
+﻿<Window x:Class="ink_wpf.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ink_wpf"
+        mc:Ignorable="d"
+        xmlns:controls="clr-namespace:Microsoft.Toolkit.Wpf.UI.Controls;assembly=Microsoft.Toolkit.Wpf.UI.Controls"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <StackPanel x:Name="rootToolbar" Orientation="Horizontal">
+                <controls:InkToolbar x:Name="inkToolbar"
+                    VerticalAlignment="Top"
+                    TargetInkCanvas="{x:Reference Name=inkCanvas}">
+                </controls:InkToolbar>
+                <Button x:Name="buttonSave" Content="Save" Click="Save"/>
+                <Button x:Name="buttonLoad" Content="Load" Click="Load"/>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="1">
+            <InkCanvas x:Name="inkCanvas" />
+        </Grid>
+    </Grid>
+</Window>
