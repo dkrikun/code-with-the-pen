@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -25,9 +26,11 @@ namespace ink_uwp
         public MainPage()
         {
             this.InitializeComponent();
-            inkCanvas.InkPresenter.InputDeviceTypes =
-                Windows.UI.Core.CoreInputDeviceTypes.Mouse |
-                Windows.UI.Core.CoreInputDeviceTypes.Pen;
+        }
+
+        internal void Save(object s, RoutedEventArgs e)
+        {
+            Debug.WriteLine("SAVE");
         }
     }
 }

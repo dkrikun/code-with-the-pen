@@ -6,16 +6,20 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
-            <InkToolbar x:Name="inkToolbar"
-                VerticalAlignment="Top"
-                TargetInkCanvas="{x:Bind inkCanvas}" />
-        </Grid>
+            <StackPanel x:Name="rootToolbar" Orientation="Horizontal">
+                <InkToolbar x:Name="inkToolbar"
+                    VerticalAlignment="Top"
+                    TargetInkCanvas="{x:Bind inkCanvas}">
+                </InkToolbar>
+                <Button x:Name="buttonSave" Content="Save" Click="Save"/>
+            </StackPanel>
+        </Grid> 
         <Grid Grid.Row="1">
             <InkCanvas x:Name="inkCanvas" />
         </Grid>
