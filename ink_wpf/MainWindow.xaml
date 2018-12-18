@@ -23,7 +23,7 @@
             </StackPanel>
         </Grid>
         <Grid Grid.Row="1">
-            <InkCanvas x:Name="inkCanvas" />
+            <controls:InkCanvas x:Name="inkCanvas" />
         </Grid>
     </Grid>
 </Window>

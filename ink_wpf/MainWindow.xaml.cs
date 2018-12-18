@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Debug = System.Diagnostics.Debug;
 
 namespace ink_wpf
 {
@@ -23,6 +24,16 @@ namespace ink_wpf
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void Save(object sender, RoutedEventArgs e)
+        {
+            Debug.WriteLine("SAVE");
+        }
+
+        private void Load(object sender, RoutedEventArgs e)
+        {
+            Debug.WriteLine("LOAD");
         }
     }
 }
