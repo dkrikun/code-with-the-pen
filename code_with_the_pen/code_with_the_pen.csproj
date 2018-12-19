@@ -55,6 +55,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="InkTag.cs" />
     <Compile Include="InkTextAdornment.cs" />
     <Compile Include="InkTextAdornmentTextViewCreationListener.cs" />
     <Compile Include="InkToolWindow.cs" />
@@ -62,11 +63,11 @@
     <Compile Include="InkToolWindowControl.xaml.cs">
       <DependentUpon>InkToolWindowControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="InkToolWindowPackage.cs" />
-    <Compile Include="InkToolWindowPackage1.cs">
+    <Compile Include="Package.cs" />
+    <Compile Include="CommandTable.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>InkToolWindowPackage.vsct</DependentUpon>
+      <DependentUpon>CommandTable.vsct</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -194,10 +195,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <VSCTCompile Include="InkToolWindowPackage.vsct">
+    <VSCTCompile Include="CommandTable.vsct">
       <ResourceName>Menus.ctmenu</ResourceName>
       <Generator>VsctGenerator</Generator>
-      <LastGenOutput>InkToolWindowPackage1.cs</LastGenOutput>
+      <LastGenOutput>CommandTable.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </VSCTCompile>
     <Content Include="Resources\InkToolWindowCommand.png" />

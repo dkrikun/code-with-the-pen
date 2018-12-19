@@ -20,9 +20,9 @@ namespace code_with_the_pen
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [ProvideToolWindow(typeof(InkToolWindow))]
     [Guid(PackageGuids.guidInkToolWindowPackageString)]
-    public sealed class InkToolWindowPackage : AsyncPackage
+    public sealed class Package : AsyncPackage
     {
-        public InkToolWindowPackage()
+        public Package()
         {
         }
 
