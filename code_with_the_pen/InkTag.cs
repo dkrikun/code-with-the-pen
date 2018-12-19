@@ -8,6 +8,7 @@ using Microsoft.VisualStudio.Utilities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Media;
@@ -50,46 +51,28 @@ namespace code_with_the_pen
         ITextBuffer SourceBuffer { get; set; }
         ITextSearchService TextSearchService { get; set; }
         ITextStructureNavigator TextStructureNavigator { get; set; }
+
         NormalizedSnapshotSpanCollection WordSpans { get; set; }
         SnapshotSpan? CurrentWord { get; set; }
         SnapshotPoint RequestedPoint { get; set; }
-        object updateLock = new object();
+
+        readonly object updateLock = new object();
 
         public event EventHandler<SnapshotSpanEventArgs> TagsChanged;
 
         public IEnumerable<ITagSpan<InkTag>> GetTags(NormalizedSnapshotSpanCollection spans)
         {
-            if (CurrentWord == null)
+            if (CurrentWord == null || spans.Count == 0)
                 yield break;
 
-            // Hold on to a "snapshot" of the word spans and current word, so that we maintain the same  
-            // collection throughout  
-            SnapshotSpan currentWord = CurrentWord.Value;
-            NormalizedSnapshotSpanCollection wordSpans = WordSpans;
+            var currentWord = CurrentWord.Value;
+            var snapshot = spans.First().Snapshot;
+            if(snapshot != currentWord.Snapshot)
+                currentWord = currentWord.TranslateTo(snapshot, SpanTrackingMode.EdgeExclusive);
 
-            if (spans.Count == 0 || wordSpans.Count == 0)
-                yield break;
-
-            // If the requested snapshot isn't the same as the one our words are on, translate our spans to the expected snapshot   
-            if (spans[0].Snapshot != wordSpans[0].Snapshot)
-            {
-                wordSpans = new NormalizedSnapshotSpanCollection(
-                    wordSpans.Select(span => span.TranslateTo(spans[0].Snapshot, SpanTrackingMode.EdgeExclusive)));
-
-                currentWord = currentWord.TranslateTo(spans[0].Snapshot, SpanTrackingMode.EdgeExclusive);
-            }
-
-            // First, yield back the word the cursor is under (if it overlaps)   
-            // Note that we'll yield back the same word again in the wordspans collection;   
-            // the duplication here is expected.   
             if (spans.OverlapsWith(new NormalizedSnapshotSpanCollection(currentWord)))
                 yield return new TagSpan<InkTag>(currentWord, new InkTag());
 
-            // Second, yield all the other words in the file   
-            foreach (SnapshotSpan span in NormalizedSnapshotSpanCollection.Overlap(spans, wordSpans))
-            {
-                yield return new TagSpan<InkTag>(span, new InkTag());
-            }
         }
 
         public InkTagger(ITextView view, ITextBuffer sourceBuffer,
@@ -102,6 +85,7 @@ namespace code_with_the_pen
             this.TextStructureNavigator = textStructureNavigator;
             this.WordSpans = new NormalizedSnapshotSpanCollection();
             this.CurrentWord = null;
+
             this.View.Caret.PositionChanged += CaretPositionChanged;
             this.View.LayoutChanged += ViewLayoutChanged;
         }
@@ -110,12 +94,14 @@ namespace code_with_the_pen
         {
             if (e.NewSnapshot != e.OldSnapshot)
             {
+                Debug.WriteLine("VIEW LAYOUT CHANGED");
                 UpdateAtCaretPosition(View.Caret.Position);
             }
         }
 
         void CaretPositionChanged(object sender, CaretPositionChangedEventArgs e)
         {
+            Debug.WriteLine("CARET POSITION CHANGED");
             UpdateAtCaretPosition(e.NewPosition);
         }
 
@@ -126,18 +112,25 @@ namespace code_with_the_pen
             if (!point.HasValue)
                 return;
 
-            // If the new caret position is still within the current word (and on the same snapshot),
-            // we don't need to check it   
-            if (CurrentWord.HasValue
-                && CurrentWord.Value.Snapshot == View.TextSnapshot
-                && point.Value >= CurrentWord.Value.Start
-                && point.Value <= CurrentWord.Value.End)
+            if (CurrentWord?.Snapshot == View.TextSnapshot)
             {
-                return;
+                if (point.Value >= CurrentWord?.Start &&
+                    point.Value <= CurrentWord?.End)
+                    return;
             }
 
-            RequestedPoint = point.Value;
-            UpdateWordAdornments();
+            lock (updateLock)
+            {
+                CurrentWord = GetWordExtent(point.Value)?.Span;
+
+#if false
+                var span = new SnapshotSpan(SourceBuffer.CurrentSnapshot,
+                   start: 0,
+                   length: SourceBuffer.CurrentSnapshot.Length);
+#endif
+                var span = new SnapshotSpan(SourceBuffer.CurrentSnapshot, CurrentWord ?? new Span(0,0));
+                TagsChanged?.Invoke(this, new SnapshotSpanEventArgs(span));
+            }
         }
          
         TextExtent? GetWordExtent(SnapshotPoint currentRequest)
@@ -167,42 +160,6 @@ namespace code_with_the_pen
                 return null;
 
             return word;
-        }
-
-        void UpdateWordAdornments()
-        {
-            SnapshotPoint currentRequest = RequestedPoint;
-            TextExtent? word = GetWordExtent(currentRequest);
-            
-
-            if (word == null)
-            {
-                //If we couldn't find a word, clear out the existing markers  
-                SynchronousUpdate(currentRequest, new NormalizedSnapshotSpanCollection(), null);
-                return;
-            }
-
-            List<SnapshotSpan> wordSpans = new List<SnapshotSpan>();
-
-            //If this is the current word, and the caret moved within a word, we're done.   
-            if (CurrentWord == word?.Span)
-                return;
-
-            //Find the new spans
-            if (!word.HasValue)
-                return;
-
-            var currentWord = word.Value.Span;
-            FindData findData = new FindData(currentWord.GetText(), currentWord.Snapshot)
-            {
-                FindOptions = FindOptions.WholeWord | FindOptions.MatchCase
-            };
-
-            wordSpans.AddRange(TextSearchService.FindAll(findData));
-
-            //If another change hasn't happened, do a real update   
-            if (currentRequest == RequestedPoint)
-                SynchronousUpdate(currentRequest, new NormalizedSnapshotSpanCollection(wordSpans), currentWord);
         }
 
         static bool WordExtentIsValid(SnapshotPoint currentRequest, TextExtent word)
