@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ink_uwp", "ink_uwp\ink_uwp.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ink_wpf", "ink_wpf\ink_wpf.csproj", "{475463A8-C6EF-458D-81AB-E00C1B442F38}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "code_with_the_pen", "code_with_the_pen\code_with_the_pen.csproj", "{16BF6294-77CA-4CD1-BBCE-60A936070B3B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -67,6 +69,26 @@ Global
 		{475463A8-C6EF-458D-81AB-E00C1B442F38}.Release|x64.Build.0 = Release|Any CPU
 		{475463A8-C6EF-458D-81AB-E00C1B442F38}.Release|x86.ActiveCfg = Release|Any CPU
 		{475463A8-C6EF-458D-81AB-E00C1B442F38}.Release|x86.Build.0 = Release|Any CPU
+		{16BF6294-77CA-4CD1-BBCE-60A936070B3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16BF6294-77CA-4CD1-BBCE-60A936070B3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16BF6294-77CA-4CD1-BBCE-60A936070B3B}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{16BF6294-77CA-4CD1-BBCE-60A936070B3B}.Debug|ARM.Build.0 = Debug|Any CPU
+		{16BF6294-77CA-4CD1-BBCE-60A936070B3B}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{16BF6294-77CA-4CD1-BBCE-60A936070B3B}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{16BF6294-77CA-4CD1-BBCE-60A936070B3B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{16BF6294-77CA-4CD1-BBCE-60A936070B3B}.Debug|x64.Build.0 = Debug|Any CPU
+		{16BF6294-77CA-4CD1-BBCE-60A936070B3B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{16BF6294-77CA-4CD1-BBCE-60A936070B3B}.Debug|x86.Build.0 = Debug|Any CPU
+		{16BF6294-77CA-4CD1-BBCE-60A936070B3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16BF6294-77CA-4CD1-BBCE-60A936070B3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16BF6294-77CA-4CD1-BBCE-60A936070B3B}.Release|ARM.ActiveCfg = Release|Any CPU
+		{16BF6294-77CA-4CD1-BBCE-60A936070B3B}.Release|ARM.Build.0 = Release|Any CPU
+		{16BF6294-77CA-4CD1-BBCE-60A936070B3B}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{16BF6294-77CA-4CD1-BBCE-60A936070B3B}.Release|ARM64.Build.0 = Release|Any CPU
+		{16BF6294-77CA-4CD1-BBCE-60A936070B3B}.Release|x64.ActiveCfg = Release|Any CPU
+		{16BF6294-77CA-4CD1-BBCE-60A936070B3B}.Release|x64.Build.0 = Release|Any CPU
+		{16BF6294-77CA-4CD1-BBCE-60A936070B3B}.Release|x86.ActiveCfg = Release|Any CPU
+		{16BF6294-77CA-4CD1-BBCE-60A936070B3B}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
