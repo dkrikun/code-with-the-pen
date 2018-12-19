@@ -11,8 +11,6 @@ namespace code_with_the_pen
 {
     internal sealed class InkToolWindowCommand
     {
-        public const int CommandId = 0x0100;
-        public static readonly Guid CommandSet = new Guid("a0437697-8a9e-478f-8f5e-4e9023b63264");
         private readonly AsyncPackage package;
 
         private InkToolWindowCommand(AsyncPackage package, OleMenuCommandService commandService)
@@ -20,8 +18,9 @@ namespace code_with_the_pen
             this.package = package ?? throw new ArgumentNullException(nameof(package));
             commandService = commandService ?? throw new ArgumentNullException(nameof(commandService));
 
-            var menuCommandID = new CommandID(CommandSet, CommandId);
-            var menuItem = new MenuCommand(this.Execute, menuCommandID);
+            var menuCommandID = new CommandID(PackageGuids.guidInkToolWindowPackageCmdSet,
+                PackageIds.InkToolWindowCommandId);
+            var menuItem = new MenuCommand(Execute, menuCommandID);
             commandService.AddCommand(menuItem);
         }
 
