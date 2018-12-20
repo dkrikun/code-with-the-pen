@@ -3,11 +3,12 @@ using System.ComponentModel.Design;
 using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
+using code_with_the_pen.ToolWindows;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Task = System.Threading.Tasks.Task;
 
-namespace code_with_the_pen
+namespace code_with_the_pen.Commands
 {
     internal sealed class InkToolWindowCommand
     {

@@ -1,4 +1,4 @@
-﻿namespace code_with_the_pen
+﻿namespace code_with_the_pen.ToolWindows
 {
     using System;
     using System.Runtime.InteropServices;
