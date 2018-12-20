@@ -12,12 +12,12 @@ namespace code_with_the_pen
     /// </summary>
     internal sealed partial class PackageGuids
     {
-        public const string guidInkToolWindowPackageString = "e1c1ea71-d1a2-43b3-88df-f1646502e9ce";
-        public const string guidImagesString = "46b3cdf4-d0cf-45fd-b0ae-a79fdbe51cd5";
-        public const string guidPackageCmdSetString = "800a7b20-23f5-4579-8ac0-ffe9eb4d0de4";
-        public static Guid guidInkToolWindowPackage = new Guid(guidInkToolWindowPackageString);
-        public static Guid guidImages = new Guid(guidImagesString);
-        public static Guid guidPackageCmdSet = new Guid(guidPackageCmdSetString);
+        public const string packageString = "e1c1ea71-d1a2-43b3-88df-f1646502e9ce";
+        public const string imagesString = "46b3cdf4-d0cf-45fd-b0ae-a79fdbe51cd5";
+        public const string cmdSetString = "800a7b20-23f5-4579-8ac0-ffe9eb4d0de4";
+        public static Guid package = new Guid(packageString);
+        public static Guid images = new Guid(imagesString);
+        public static Guid cmdSet = new Guid(cmdSetString);
     }
     /// <summary>
     /// Helper class that encapsulates all CommandIDs uses across VS Package.
@@ -30,7 +30,8 @@ namespace code_with_the_pen
         public const int bmpPicX = 0x0004;
         public const int bmpPicArrows = 0x0005;
         public const int bmpPicStrikethrough = 0x0006;
-        public const int InkToolWindowCommandId = 0x0100;
-        public const int cmdidAddDrawingCommand = 0x0101;
+        public const int inkToolWindow = 0x0100;
+        public const int addDrawing = 0x0101;
+        public const int contextMenuGroup = 0x0102;
     }
 }

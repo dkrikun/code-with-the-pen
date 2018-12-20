@@ -18,8 +18,7 @@ namespace code_with_the_pen
             this.package = package ?? throw new ArgumentNullException(nameof(package));
             commandService = commandService ?? throw new ArgumentNullException(nameof(commandService));
 
-            var menuCommandID = new CommandID(PackageGuids.guidPackageCmdSet,
-                PackageIds.InkToolWindowCommandId);
+            var menuCommandID = new CommandID(PackageGuids.cmdSet, PackageIds.inkToolWindow);
             var menuItem = new MenuCommand(Execute, menuCommandID);
             commandService.AddCommand(menuItem);
         }

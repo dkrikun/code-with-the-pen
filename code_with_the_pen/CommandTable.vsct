@@ -4,20 +4,28 @@
   <Extern href="stdidcmd.h" />
   <Extern href="vsshlids.h" />
 
-  <Commands package="guidInkToolWindowPackage">
+  <Commands package="package">
 
+    <!--Groups-->
+    <Groups>
+        <Group guid="cmdSet" id="contextMenuGroup" priority="0x0100">
+            <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_CODEWIN"/>
+        </Group>
+    </Groups>
+      
     <!--Buttons-->
     <Buttons>
-      <Button guid="guidPackageCmdSet" id="InkToolWindowCommandId" priority="0x0100">
+      <Button guid="cmdSet" id="inkToolWindow" priority="0x0100">
         <Parent guid="guidSHLMainMenu" id="IDG_VS_WNDO_OTRWNDWS1" />
-        <Icon guid="guidImages" id="bmpPic1" />
+        <Icon guid="images" id="bmpPic1" />
         <Strings>
           <ButtonText>InkToolWindow</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidPackageCmdSet" id="cmdidAddDrawingCommand" priority="0x0100">
-        <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_CODEWIN" />
-        <Icon guid="guidImages" id="bmpPic1" />
+        
+      <Button guid="cmdSet" id="addDrawing" priority="0x0100">
+        <Parent guid="cmdSet" id="contextMenuGroup" />
+        <Icon guid="images" id="bmpPic1" />
         <Strings>
           <ButtonText>Add Drawing</ButtonText>
         </Strings>
@@ -26,20 +34,20 @@
 
     <!--Bitmaps-->
     <Bitmaps>
-      <Bitmap guid="guidImages" href="Resources\InkToolWindowCommand.png"
+      <Bitmap guid="images" href="Resources\InkToolWindowCommand.png"
               usedList="bmpPic1, bmpPic2, bmpPicSearch, bmpPicX, bmpPicArrows, bmpPicStrikethrough" />
     </Bitmaps>
   </Commands>
   
   <KeyBindings>
-    <KeyBinding guid="guidPackageCmdSet" id="cmdidAddDrawingCommand"
+    <KeyBinding guid="cmdSet" id="inkToolWindow"
                 editor="guidVSStd97" key1="k" mod1="Control" key2="d" mod2="Control" />
   </KeyBindings>
 
   <Symbols>
-    <GuidSymbol name="guidInkToolWindowPackage" value="{e1c1ea71-d1a2-43b3-88df-f1646502e9ce}" />
+    <GuidSymbol name="package" value="{e1c1ea71-d1a2-43b3-88df-f1646502e9ce}" />
 
-    <GuidSymbol name="guidImages" value="{46b3cdf4-d0cf-45fd-b0ae-a79fdbe51cd5}">
+    <GuidSymbol name="images" value="{46b3cdf4-d0cf-45fd-b0ae-a79fdbe51cd5}">
       <IDSymbol name="bmpPic1" value="1" />
       <IDSymbol name="bmpPic2" value="2" />
       <IDSymbol name="bmpPicSearch" value="3" />
@@ -48,9 +56,10 @@
       <IDSymbol name="bmpPicStrikethrough" value="6" />
     </GuidSymbol>
   
-    <GuidSymbol name="guidPackageCmdSet" value="{800a7b20-23f5-4579-8ac0-ffe9eb4d0de4}">
-        <IDSymbol name="InkToolWindowCommandId" value="0x0100" />
-        <IDSymbol name="cmdidAddDrawingCommand" value="0x0101" />
+    <GuidSymbol name="cmdSet" value="{800a7b20-23f5-4579-8ac0-ffe9eb4d0de4}">
+        <IDSymbol name="inkToolWindow" value="0x0100" />
+        <IDSymbol name="addDrawing" value="0x0101" />
+        <IDSymbol name="contextMenuGroup" value="0x0102" />
     </GuidSymbol>
   </Symbols>
 </CommandTable>

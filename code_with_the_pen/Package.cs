@@ -19,7 +19,7 @@ namespace code_with_the_pen
     [InstalledProductRegistration("#110", "#112", "1.0", IconResourceID = 400)]
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [ProvideToolWindow(typeof(InkToolWindow))]
-    [Guid(PackageGuids.guidInkToolWindowPackageString)]
+    [Guid(PackageGuids.packageString)]
     public sealed class Package : AsyncPackage
     {
         public Package()
