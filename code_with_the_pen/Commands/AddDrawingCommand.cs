@@ -12,6 +12,7 @@ namespace code_with_the_pen.Commands
     internal sealed class AddDrawingCommand
     {
         private readonly AsyncPackage package;
+        public event EventHandler<EventArgs> Executed;
 
         private AddDrawingCommand(AsyncPackage package, OleMenuCommandService commandService)
         {
@@ -49,6 +50,9 @@ namespace code_with_the_pen.Commands
         private void Execute(object sender, EventArgs e)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
+            Executed?.Invoke(this, e);
+
+#if false
             string message = string.Format(CultureInfo.CurrentCulture, "Inside {0}.MenuItemCallback()", this.GetType().FullName);
             string title = "AddDrawingCommand";
 
@@ -60,6 +64,7 @@ namespace code_with_the_pen.Commands
                 OLEMSGICON.OLEMSGICON_INFO,
                 OLEMSGBUTTON.OLEMSGBUTTON_OK,
                 OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
+#endif
         }
     }
 }

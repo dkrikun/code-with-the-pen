@@ -1,4 +1,5 @@
 ﻿
+using code_with_the_pen.Commands;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Classification;
 using Microsoft.VisualStudio.Text.Editor;
@@ -86,8 +87,16 @@ namespace code_with_the_pen
             this.WordSpans = new NormalizedSnapshotSpanCollection();
             this.CurrentWord = null;
 
+#if false
             this.View.Caret.PositionChanged += CaretPositionChanged;
             this.View.LayoutChanged += ViewLayoutChanged;
+#endif
+            AddDrawingCommand.Instance.Executed += TagNow;
+        }
+
+        void TagNow(object sender, EventArgs e)
+        {
+            UpdateAtCaretPosition(View.Caret.Position);
         }
 
         void ViewLayoutChanged(object sender, TextViewLayoutChangedEventArgs e)
