@@ -9,22 +9,22 @@ using Task = System.Threading.Tasks.Task;
 
 namespace code_with_the_pen
 {
-    internal sealed class InkToolWindowCommand
+    internal sealed class AddDrawingCommand
     {
         private readonly AsyncPackage package;
 
-        private InkToolWindowCommand(AsyncPackage package, OleMenuCommandService commandService)
+        private AddDrawingCommand(AsyncPackage package, OleMenuCommandService commandService)
         {
             this.package = package ?? throw new ArgumentNullException(nameof(package));
             commandService = commandService ?? throw new ArgumentNullException(nameof(commandService));
 
             var menuCommandID = new CommandID(PackageGuids.guidPackageCmdSet,
-                PackageIds.InkToolWindowCommandId);
-            var menuItem = new MenuCommand(Execute, menuCommandID);
+                PackageIds.cmdidAddDrawingCommand);
+            var menuItem = new MenuCommand(this.Execute, menuCommandID);
             commandService.AddCommand(menuItem);
         }
 
-        public static InkToolWindowCommand Instance
+        public static AddDrawingCommand Instance
         {
             get;
             private set;
@@ -41,21 +41,26 @@ namespace code_with_the_pen
         public static async Task InitializeAsync(AsyncPackage package)
         {
             await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync(package.DisposalToken);
+
             var commandService = await package.GetServiceAsync(typeof(IMenuCommandService))
                 as OleMenuCommandService;
- 
-            Instance = new InkToolWindowCommand(package, commandService);
+            Instance = new AddDrawingCommand(package, commandService);
         }
 
         private void Execute(object sender, EventArgs e)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
+            string message = string.Format(CultureInfo.CurrentCulture, "Inside {0}.MenuItemCallback()", this.GetType().FullName);
+            string title = "AddDrawingCommand";
 
-            var window = this.package.FindToolWindow(typeof(InkToolWindow),
-                id: 0, create: true);
-
-            IVsWindowFrame windowFrame = (IVsWindowFrame)window.Frame;
-            Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(windowFrame.Show());
+            // Show a message box to prove we were here
+            VsShellUtilities.ShowMessageBox(
+                this.package,
+                message,
+                title,
+                OLEMSGICON.OLEMSGICON_INFO,
+                OLEMSGBUTTON.OLEMSGBUTTON_OK,
+                OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
         }
     }
 }

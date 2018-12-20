@@ -55,6 +55,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Commands\AddDrawingCommand.cs" />
     <Compile Include="InkTag.cs" />
     <Compile Include="InkTextAdornment.cs" />
     <Compile Include="InkTextAdornmentTextViewCreationListener.cs" />

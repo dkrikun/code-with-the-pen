@@ -31,6 +31,7 @@ namespace code_with_the_pen
         {
             await JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
             await InkToolWindowCommand.InitializeAsync(this);
+            await AddDrawingCommand.InitializeAsync(this);
         }
     }
 }
